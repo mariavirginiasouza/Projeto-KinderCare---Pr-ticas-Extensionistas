@@ -9,7 +9,8 @@ def paciente_list(request):
     busca = request.GET.get('q', '')
     pacientes = Paciente.objects.all().prefetch_related('terapeutas_responsaveis')
     if request.user.role == 'terapeuta':
-        pacientes = pacientes.filter(terapeutas_responsaveis__usuario=request.user).distinct()
+        pacientes = pacientes.filter(
+            terapeutas_responsaveis__usuario=request.user).distinct()
     if busca:
         pacientes = pacientes.filter(nome__icontains=busca)
     return render(request, 'pacientes/list.html', {'pacientes': pacientes, 'busca': busca})
@@ -21,7 +22,7 @@ def paciente_create(request):
     if form.is_valid():
         form.save()
         return redirect('paciente_list')
-    return render(request, 'pacientes/form.html', {'form': form, 'titulo': 'Novo paciente'})
+    return render(request, 'pacientes/form.html', {'form': form, 'titulo': 'Cadastrar novo paciente'})
 
 
 @role_required('recepcao', 'coordenacao')
