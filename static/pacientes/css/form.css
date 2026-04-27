@@ -11,7 +11,7 @@ textarea {
 
 .filtro-terapeutas input[type="checkbox"] {
   width: auto;
-}
+} 
 
 .filtro-terapeutas {
   max-height: 200px;
@@ -19,7 +19,7 @@ textarea {
   border: 1px solid #e0e0e0;
   padding: 10px;
   border-radius: 12px;
-  background: #fafafa;
+  background: #fafafa8e;
 }
 
 .filtro-terapeutas::-webkit-scrollbar {

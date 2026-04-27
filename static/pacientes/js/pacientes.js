@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!container) return;
 
-  // cria campo de busca
+  
   const input = document.createElement('input');
   input.type = 'text';
   input.placeholder = 'Buscar terapeuta...';
