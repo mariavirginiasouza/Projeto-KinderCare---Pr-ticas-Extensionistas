@@ -83,6 +83,7 @@ input, select, textarea { width: 100%; padding: .8rem .9rem; border: 1px solid #
 .btn-primary, .btn-outline, .btn-danger { display: inline-block; padding: .8rem 1rem; text-decoration: none; border-radius: 12px; border: none; cursor: pointer; }
 .btn-primary { background: var(--primary); color: var(--white); }
 .btn-outline { background: transparent; color: var(--primary-dark); border: 1px solid var(--primary-dark); }
+.sair { background: transparent; color: white; border: 1px solid var(--primary-dark); border-color: white;}
 .btn-danger { background: #c0392b; color: var(--white); }
 .table-card { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; }

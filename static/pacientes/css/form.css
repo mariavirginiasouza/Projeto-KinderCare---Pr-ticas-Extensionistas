@@ -1,0 +1,32 @@
+
+input:not([type="checkbox"]),
+select,
+textarea {
+  width: 100%;
+  padding: .8rem .9rem;
+  border: 1px solid #d8dce6;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.filtro-terapeutas input[type="checkbox"] {
+  width: auto;
+}
+
+.filtro-terapeutas {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  padding: 10px;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.filtro-terapeutas::-webkit-scrollbar {
+  width: 6px;
+}
+
+.filtro-terapeutas::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
