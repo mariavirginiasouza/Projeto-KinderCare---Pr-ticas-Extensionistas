@@ -1,0 +1,83 @@
+.content{
+    padding: 25px;
+}
+
+.table-card td, 
+.table-card th {
+    padding: 16px 20px; /* O primeiro número é cima/baixo, o segundo é esquerda/direita */
+    vertical-align: middle; /* Garante que texto e ícones fiquem alinhados ao centro */
+    /* text-align: center; */
+}
+
+.table-card {
+    padding: 10px; 
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    border-spacing: 0; 
+}
+
+.table-card th {
+    background-color: #fff6fa;
+    color: var(--primary-dark);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.acoes-lista {
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    gap: 15px;               
+    height: 100%;           
+    text-align: center;      
+}
+
+.menu-acoes{
+    text-align: center;
+}
+
+/* Container do link */
+.hint-parent {
+    position: relative;
+    display: inline-block;
+}
+
+/* Criando o balãozinho */
+.hint-parent::after {
+    content: attr(data-hint); /* Pega o texto do data-hint */
+    position: absolute;
+    bottom: 125%; /* Aparece acima do ícone */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--text); /* Ou use var(--primary-dark) para ser rosa */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s;
+    z-index: 100;
+}
+
+/* Mostrar ao passar o mouse */
+.hint-parent:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+.hint-parent:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+.busca{
+    width: 90%;
+}

@@ -35,7 +35,7 @@
                 <td>{{ usuario.get_role_display }}</td>
                 <td>{% if usuario.is_active %}Ativo{% else %}Inativo{% endif %}</td>
                 <td class="acoes-lista">
-                    <a href="{% url 'user_update' usuario.pk %}">
+                    <a href="{% url 'user_update' usuario.pk %}" class="hint-parent" data-hint="Editar Usuário">
                         <svg version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve" width="18px" height="18px" fill="#d93a7f" stroke="#d93a7f" transform="matrix(1, 0, 0, 1, 0, 0)">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.064"></g>
                             <g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:none;stroke:#d93a7f;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;} </style> 
@@ -43,9 +43,9 @@
                                 <line class="st0" x1="9" y1="23" x2="21" y2="11"></line> 
                             </g>
                         </svg>
-                    </a>
+                    </a> 
                     {% if usuario != request.user %}
-                    <a href="{% url 'user_delete' usuario.pk %}">
+                    <a href="{% url 'user_delete' usuario.pk %}" class="hint-parent" data-hint="Excluir Usuário">
                         <svg version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve" width="18px" height="18px" fill="#d93a7f">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                             <g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:none;stroke:#d93a7f;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;} </style> <path class="st0" d="M20,9h-8V7c0-2.2,1.8-4,4-4h0c2.2,0,4,1.8,4,4V9z">

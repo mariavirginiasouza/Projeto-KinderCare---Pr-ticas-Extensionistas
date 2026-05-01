@@ -1,0 +1,92 @@
+
+input:not([type="checkbox"]),
+select,
+textarea {
+  width: 100%;
+  padding: .8rem .9rem;
+  border: 1px solid #d8dce6;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.filtro-terapeutas input[type="checkbox"] {
+  width: auto;
+} 
+
+.filtro-terapeutas {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  padding: 10px;
+  border-radius: 12px;
+  background: #fafafa8e;
+}
+
+.filtro-terapeutas::-webkit-scrollbar {
+  width: 6px;
+}
+
+.filtro-terapeutas::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+/* Deixa todos os labels em negrito */
+label {
+    font-weight: bold;
+}
+
+/* Remove o negrito dos labels que contêm os checkboxes */
+label:has(input[type="checkbox"]) {
+    font-weight: normal;
+}
+
+/* base do checkbox */
+input[type="checkbox"] {
+  appearance: none;
+  width: 110px;
+  height: 24px;
+  background: #ccc;
+  border-radius: 999px;
+  position: relative;
+  cursor: pointer;
+  transition: 0.2s;
+  vertical-align: middle;
+}
+
+/* bolinha */
+input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #fff;
+  border-radius: 50%;
+  top: 6px;
+  left: 3px;
+  transition: 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* estado ativo */
+input[type="checkbox"]:checked {
+  background: #d93a7f;
+}
+
+/* move a bolinha */
+input[type="checkbox"]:checked::before {
+  transform: translateX(80px);
+}
+
+/* Deixa todos os labels em negrito */
+label {
+    font-weight: bold;
+}
+
+/* Remove o negrito dos labels que contêm os checkboxes */
+label:has(input[type="checkbox"]) {
+    font-weight: normal;
+}
+
+
+

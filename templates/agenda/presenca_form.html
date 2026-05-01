@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'agenda/css/form.css' %}">
+{% endblock %}
 {% block content %}
 <div class="card">
     <h2>Registrar presença</h2>

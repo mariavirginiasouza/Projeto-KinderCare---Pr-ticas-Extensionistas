@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'agenda/css/form.css' %}">
+    <script defer src="/static/agenda/js/agenda.js"></script>
+{% endblock %}
 {% block content %}
 <div class="card">
     <h2>Gerar atendimentos do período</h2>
