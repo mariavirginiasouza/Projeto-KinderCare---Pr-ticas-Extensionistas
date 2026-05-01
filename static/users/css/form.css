@@ -1,0 +1,137 @@
+
+input:not([type="checkbox"]),
+select,
+textarea {
+  width: 100%;
+  padding: .8rem .9rem;
+  border: 1px solid #d8dce6;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.filtro-terapeutas input[type="checkbox"] {
+  width: auto;
+} 
+
+.filtro-terapeutas {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  padding: 10px;
+  border-radius: 12px;
+  background: #fafafa8e;
+}
+
+.filtro-terapeutas::-webkit-scrollbar {
+  width: 6px;
+}
+
+.filtro-terapeutas::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+/* Deixa todos os labels em negrito */
+label {
+    font-weight: bold;
+}
+
+/* Remove o negrito dos labels que contêm os checkboxes */
+label:has(input[type="checkbox"]) {
+    font-weight: normal;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  width: 110px;
+  height: 24px;
+  background: #ccc;
+  border-radius: 999px;
+  position: relative;
+  cursor: pointer;
+  transition: 0.2s;
+  vertical-align: middle;
+}
+
+/* bolinha */
+input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #fff;
+  border-radius: 50%;
+  top: 6px;
+  left: 5px;
+  transition: 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* estado ativo */
+input[type="checkbox"]:checked {
+  background: #d93a7f;
+}
+
+/* move a bolinha */
+input[type="checkbox"]:checked::before {
+  transform: translateX(80px);
+}
+
+/* Deixa todos os labels em negrito */
+label {
+    font-weight: bold;
+}
+
+/* Remove o negrito dos labels que contêm os checkboxes */
+label:has(input[type="checkbox"]) {
+    font-weight: normal;
+}
+
+/* Container que envolve o botão (isolado pela classe dentro do JavaScript) */
+.switch-container {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+/* Esconde APENAS o checkbox quadrado do botão de ver senha */
+#toggle-senha {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* O fundo cinza do botão (exclusivo pelo ID) */
+#toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 20px;
+}
+
+/* A bolinha branca interna (exclusiva pelo ID) */
+#toggle-slider::before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+/* Quando marcado, o fundo fica azul APENAS para este elemento */
+#toggle-senha:checked + #toggle-slider {
+  background-color: #d93a7f;;
+}
+
+/* O SEU CÓDIGO: Move a bolinha para a direita APENAS para este elemento */
+#toggle-senha:checked + #toggle-slider::before {
+  transform: translateX(20px);
+}
+
