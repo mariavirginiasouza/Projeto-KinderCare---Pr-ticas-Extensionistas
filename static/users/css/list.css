@@ -81,3 +81,14 @@ table {
 .busca{
     width: 90%;
 }
+
+/* Deixa todos os labels em negrito */
+label {
+    font-weight: bold;
+}
+
+/* Remove o negrito dos labels que contêm os checkboxes */
+label:has(input[type="checkbox"]) {
+    font-weight: normal;
+}
+

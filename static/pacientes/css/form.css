@@ -30,3 +30,16 @@ textarea {
   background: #ccc;
   border-radius: 10px;
 }
+
+/* Deixa todos os labels em negrito */
+label {
+    font-weight: bold;
+}
+
+/* Remove o negrito dos labels que contêm os checkboxes */
+label:has(input[type="checkbox"]) {
+    font-weight: normal;
+}
+
+
+

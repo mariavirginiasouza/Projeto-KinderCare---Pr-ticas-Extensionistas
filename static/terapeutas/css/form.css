@@ -39,3 +39,13 @@ input[type="checkbox"]:checked {
 input[type="checkbox"]:checked::before {
   transform: translateX(80px);
 }
+
+/* Deixa todos os labels em negrito */
+label {
+    font-weight: bold;
+}
+
+/* Remove o negrito dos labels que contêm os checkboxes */
+label:has(input[type="checkbox"]) {
+    font-weight: normal;
+}

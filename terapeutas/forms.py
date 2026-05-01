@@ -17,3 +17,8 @@ class TerapeutaForm(forms.ModelForm):
             'nome': forms.TextInput(attrs={'placeholder': 'Digite o nome completo do terapeuta', 'required': 'required'}),
             'especialidades': forms.CheckboxSelectMultiple(),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Altera o texto padrão do "---------"
+        self.fields['usuario'].empty_label = "Escolha um usuário"
