@@ -1,0 +1,10 @@
+# Variáveis de ambiente
+.env
+
+# Banco SQLite
+*.sqlite3
+
+# Python
+__pycache__/
+*.pyc
+.venv/
