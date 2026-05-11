@@ -1,26 +1,78 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Página inicial</h2>
+<div class="page-header">
+    <h2>Olá {{ request.user.get_full_name|default:request.user.username }}!</h2>
+    <h3>Hoje é {{ data|default:"Segunda-feira" }}.</h3>
+</div>
+
+<div class="card quick-actions">
+    <div class="quick-header">
+        <h3>Ações rápidas</h3>
+    </div>
+
+    <div class="quick-buttons">
+        <a href="{% url 'paciente_create' %}" class="quick-btn">
+            + Novo paciente
+        </a>
+
+        <a href="{% url 'gerar_atendimentos' %}" class="quick-btn">
+            + Novo atendimento
+        </a>
+
+        <a href="{% url 'terapeuta_create' %}" class="quick-btn">
+            + Novo terapeuta
+        </a>
+    </div>
+</div>
+
 <div class="grid-cards dashboard-stats">
-    <div class="card stat"><h3>Pacientes</h3><p>{{ total_pacientes }}</p></div>
-    <div class="card stat"><h3>Terapeutas</h3><p>{{ total_terapeutas }}</p></div>
-    <div class="card stat"><h3>Usuários</h3><p>{{ total_usuarios }}</p></div>
-    <div class="card stat"><h3>Atendimentos hoje</h3><p>{{ atendimentos_hoje }}</p></div>
+    <div class="card stat highlight">
+        <h3>Atendimentos hoje</h3>
+        <p>{{ atendimentos_hoje }}</p>
+    </div>
+
+    <!--<div class="card stat">
+        <h3>Presenças pendentes</h3>
+        <p>{{ presencas_pendentes|default:0 }}</p>
+    </div>-->
+
+    <div class="card stat">
+        <h3>Pacientes ativos</h3>
+        <p>{{ total_pacientes }}</p>
+    </div>
+
+    <div class="card stat">
+        <h3>Terapeutas</h3>
+        <p>{{ total_terapeutas }}</p>
+    </div>
 </div>
 
 <div class="card">
-    <h3>Resumo operacional</h3>
-    <div class="summary-grid">
-        <div><strong>Presentes</strong><br>{{ totais_status.presentes|default:0 }}</div>
-        <div><strong>Faltas</strong><br>{{ totais_status.faltas|default:0 }}</div>
-        <div><strong>Faltas justificadas</strong><br>{{ totais_status.justificadas|default:0 }}</div>
-        <div><strong>Extras</strong><br>{{ totais_status.extras|default:0 }}</div>
+    <h3>Resumo operacional diário</h3>
+    <div class="grid-cards">
+        <div class="card stat green">
+            <h4>Presentes</h4>
+            <p>{{ totais_status.presentes|default:0 }}</p>
+        </div>
+        <div class="card stat red">
+            <h4>Faltas</h4>
+            <p>{{ totais_status.faltas|default:0 }}</p>
+        </div>
+        <div class="card stat yellow">
+            <h4>Justificadas</h4>
+            <p>{{ totais_status.justificadas|default:0 }}</p>
+        </div>
+        <div class="card stat purple">
+            <h4>Extras</h4>
+            <p>{{ totais_status.extras|default:0 }}</p>
+        </div>
     </div>
 </div>
 
 <div class="page-header">
-    <h3>Menu de módulos</h3>
+    <h3>Módulos do sistema</h3>
 </div>
+
 <div class="module-grid">
     {% for modulo in modulos_visiveis %}
     <a class="card module-card" href="{% url modulo.url %}">
@@ -30,4 +82,5 @@
     </a>
     {% endfor %}
 </div>
+
 {% endblock %}

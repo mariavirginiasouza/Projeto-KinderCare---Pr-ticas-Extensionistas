@@ -105,3 +105,99 @@ th { background: #fff6fa; }
     .content { margin-left: 0; }
     .topbar { flex-direction: column; align-items: flex-start; gap: .75rem; }
 }
+.quick-actions {
+    padding: 32px;
+    border-radius: 24px;
+    background: #ffffff;
+    border: 1px solid #ececec;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+    text-align: center;
+}
+
+.quick-header {
+    margin-bottom: 28px;
+}
+
+.quick-tag {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #ffe5f1;
+    color: #e63e8c;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.quick-header h3 {
+    margin: 0;
+    font-size: 1.7rem;
+    color: #1f1f1f;
+}
+
+.quick-header p {
+    margin-top: 8px;
+    color: #7a7a7a;
+    font-size: 0.95rem;
+}
+
+.quick-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.quick-btn {
+    min-width: 220px;
+    padding: 16px 24px;
+    border-radius: 16px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    color: white;
+    background: linear-gradient(135deg, #ff4f9a, #e63e8c);
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 18px rgba(230, 62, 140, 0.2);
+}
+
+.quick-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(230, 62, 140, 0.28);
+}
+
+@media (max-width: 768px) {
+    .quick-buttons {
+        flex-direction: column;
+    }
+
+    .quick-btn {
+        width: 100%;
+    }
+}
+
+.btn-primary {
+    background: #e83e8c;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.highlight { border-left: 6px solid #e83e8c; }
+
+.empty-state {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+}
+
+.alert-card { border-left: 6px solid #ffc107; }
+.alerts { padding-left: 18px; }
+
+.green { border-left: 6px solid #28a745; }
+.red { border-left: 6px solid #dc3545; }
+.yellow { border-left: 6px solid #ffc107; }
+.purple { border-left: 6px solid #6f42c1; }
