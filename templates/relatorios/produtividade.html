@@ -4,38 +4,135 @@
     <h2>Relatório de produtividade</h2>
 </div>
 <form method="get" class="toolbar">
+    <input type="hidden" name="aba" value="{{ aba }}">
     <input type="date" name="inicio" value="{{ inicio }}">
     <input type="date" name="fim" value="{{ fim }}">
     <button class="btn-outline" type="submit">Aplicar período</button>
 </form>
-<div class="card table-card">
-<table>
-    <thead>
-        <tr>
-            <th>Terapeuta</th>
-            <th>Agendados</th>
-            <th>Realizados</th>
-            <th>Faltas</th>
-            <th>Faltas justificadas</th>
-            <th>Extras</th>
-            <th>Produtividade</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in dados %}
-        <tr>
-            <td>{{ item.terapeuta.nome }}</td>
-            <td>{{ item.total_agendado }}</td>
-            <td>{{ item.realizados }}</td>
-            <td>{{ item.faltas }}</td>
-            <td>{{ item.faltas_justificadas }}</td>
-            <td>{{ item.extras }}</td>
-            <td>{{ item.produtividade }}%</td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="7">Nenhum dado encontrado para o período.</td></tr>
-        {% endfor %}
-    </tbody>
-</table>
+
+<div class="tabs">
+    <a href="?aba=terapeutas&inicio={{ inicio }}&fim={{ fim }}"
+       class="tab-link {% if aba == 'terapeutas' %}active{% endif %}">Terapeutas</a>
+    <a href="?aba=pacientes&inicio={{ inicio }}&fim={{ fim }}"
+       class="tab-link {% if aba == 'pacientes' %}active{% endif %}">Pacientes</a>
+    <a href="?aba=aulas&inicio={{ inicio }}&fim={{ fim }}"
+       class="tab-link {% if aba == 'aulas' %}active{% endif %}">Aulas</a>
 </div>
+
+{% if aba == 'aulas' %}
+<div class="card table-card">
+    <table>
+        <thead>
+            <tr>
+                <th>Paciente</th>
+                <th>Total de dias</th>
+                <th>Presentes</th>
+                <th>Ausentes</th>
+                <th>Frequência</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in dados_aulas %}
+            <tr>
+                <td>{{ item.nome }}</td>
+                <td>{{ item.total }}</td>
+                <td>{{ item.presentes }}</td>
+                <td>{{ item.ausentes }}</td>
+                <td>{{ item.percentual }}%</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5">Nenhum dado encontrado para o período.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% elif aba == 'terapeutas' %}
+<div class="card table-card">
+    <table>
+        <thead>
+            <tr>
+                <th>Terapeuta</th>
+                <th>Agendados</th>
+                <th>Realizados</th>
+                <th>Faltas</th>
+                <th>Faltas justificadas</th>
+                <th>Extras</th>
+                <th>Produtividade</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in dados_terapeutas %}
+            <tr>
+                <td>{{ item.nome }}</td>
+                <td>{{ item.total_agendado }}</td>
+                <td>{{ item.realizados }}</td>
+                <td>{{ item.faltas }}</td>
+                <td>{{ item.faltas_justificadas }}</td>
+                <td>{{ item.extras }}</td>
+                <td>{{ item.produtividade }}%</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="7">Nenhum dado encontrado para o período.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% elif aba == 'pacientes' %}
+<div class="card table-card">
+    <table>
+        <thead>
+            <tr>
+                <th>Paciente</th>
+                <th>Responsável</th>
+                <th>Agendados</th>
+                <th>Realizados</th>
+                <th>Faltas</th>
+                <th>Faltas justificadas</th>
+                <th>Extras</th>
+                <th>Presença</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in dados_pacientes %}
+            <tr>
+                <td>{{ item.nome }}</td>
+                <td>{{ item.responsavel }}</td>
+                <td>{{ item.total_agendado }}</td>
+                <td>{{ item.realizados }}</td>
+                <td>{{ item.faltas }}</td>
+                <td>{{ item.faltas_justificadas }}</td>
+                <td>{{ item.extras }}</td>
+                <td>{{ item.presenca }}%</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="8">Nenhum dado encontrado para o período.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+<style>
+.tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+}
+.tab-link {
+    padding: 8px 20px;
+    border-radius: 6px 6px 0 0;
+    text-decoration: none;
+    color: var(--text-secondary, #666);
+    background: var(--bg-secondary, #f0f0f0);
+    border: 1px solid var(--border, #ddd);
+    border-bottom: none;
+    font-weight: 500;
+}
+.tab-link.active {
+    background: var(--bg-card, #fff);
+    color: var(--primary, #3b82f6);
+    border-bottom: 1px solid var(--bg-card, #fff);
+    margin-bottom: -1px;
+}
+</style>
 {% endblock %}
