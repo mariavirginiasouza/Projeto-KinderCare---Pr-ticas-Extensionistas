@@ -57,11 +57,8 @@ def user_create(request):
                 request,
                 f'Usuário criado com sucesso! Um email foi enviado para {user.email} com o link para definição de senha.'
             )
-        except Exception:
-            messages.warning(
-                request,
-                f'Usuário criado, mas não foi possível enviar o email para {user.email}. Verifique as configurações de email ou reenvie manualmente.'
-            )
+        except Exception as e:
+            messages.warning(request, f'Usuário criado, mas erro ao enviar email: {str(e)}')
         return redirect('user_list')
     return render(request, 'users/form.html', {'form': form, 'titulo': 'Novo usuário'})
 
@@ -82,8 +79,8 @@ def user_send_password_email(request, pk):
     try:
         _send_password_setup_email(request, usuario)
         messages.success(request, f'Email de definição de senha enviado para {usuario.email}.')
-    except Exception:
-        messages.error(request, 'Não foi possível enviar o email. Verifique as configurações de email.')
+    except Exception as e:
+        messages.error(request, f'Erro: {str(e)}') 
     return redirect('user_list')
 
 
