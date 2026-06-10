@@ -2,7 +2,7 @@ from datetime import timedelta
 from django.db import models
 from pacientes.models import Paciente
 from terapeutas.models import Terapeuta
-
+from django.core.exceptions import ValidationError
 
 class AgendaSemanal(models.Model):
     SEGUNDA = 0
@@ -29,10 +29,27 @@ class AgendaSemanal(models.Model):
         verbose_name = 'Agenda semanal'
         verbose_name_plural = 'Agenda semanal'
         ordering = ['dia_semana', 'horario']
+        unique_together = ('paciente', 'terapeuta', 'dia_semana', 'horario')
 
     def __str__(self):
         return f'{self.get_dia_semana_display()} - {self.horario} - {self.paciente}'
 
+    def clean(self):
+        conflito = AgendaSemanal.objects.exclude(pk=self.pk).filter(
+            paciente=self.paciente,
+            terapeuta=self.terapeuta,
+            dia_semana=self.dia_semana,
+            horario=self.horario
+        ).exists()
+
+        if conflito:
+            raise ValidationError(
+                'Já existe uma agenda semanal cadastrada para este paciente com este terapeuta, nesse dia e horário.'
+            )
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
 class Atendimento(models.Model):
     NORMAL = 'normal'
@@ -70,6 +87,33 @@ class Atendimento(models.Model):
 
     def __str__(self):
         return f'{self.data} {self.horario} - {self.paciente}'
+    
+    def clean(self):
+        conflito_paciente = Atendimento.objects.exclude(pk=self.pk).filter(
+            paciente=self.paciente,
+            data=self.data,
+            horario=self.horario
+        ).exists()
+
+        if conflito_paciente:
+            raise ValidationError({
+                'paciente': 'Já existe atendimento para este paciente nesta data e horário.'
+            })
+
+        conflito_terapeuta = Atendimento.objects.exclude(pk=self.pk).filter(
+            terapeuta=self.terapeuta,
+            data=self.data,
+            horario=self.horario
+        ).exists()
+
+        if conflito_terapeuta:
+            raise ValidationError({
+                'terapeuta': 'Já existe atendimento para este terapeuta nesta data e horário.'
+            })
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
     @classmethod
     def gerar_atendimentos_periodo(cls, data_inicial, data_final):
