@@ -1,14 +1,13 @@
 {
-  "builds": [
-    {
-      "src": "kindercare/wsgi.py",
-      "use": "@vercel/python"
+  "functions": {
+    "kindercare/wsgi.py": {
+      "runtime": "vercel-python@latest"
     }
-  ],
-  "routes": [
+  },
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "kindercare/wsgi.py"
+      "source": "/(.*)",
+      "destination": "/kindercare/wsgi.py"
     }
   ]
 }
