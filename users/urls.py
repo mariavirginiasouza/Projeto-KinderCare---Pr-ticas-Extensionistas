@@ -8,4 +8,5 @@ urlpatterns = [
     path('<int:pk>/excluir/', views.user_delete, name='user_delete'),
     path('<int:pk>/enviar-email-senha/', views.user_send_password_email, name='user_send_password_email'),
     path('definir-senha/<uidb64>/<token>/', views.password_set, name='password_set'),
+    path('esqueceu-senha/', views.forgot_password, name='forgot_password'),
 ]

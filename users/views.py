@@ -111,3 +111,32 @@ def password_set(request, uidb64, token):
         return redirect('login')
 
     return render(request, 'users/definir_senha.html', {'form': form})
+
+def forgot_password(request):
+    if request.method == 'POST':
+        username = request.POST.get('username', '').strip()
+        try:
+            user = User.objects.get(username=username)
+            try:
+                _forgot_password_setup_email(request, user)
+                messages.success(request, f'Email enviado para {user.email} com o link para redefinir sua senha.')
+            except Exception as e:
+                messages.error(request, f'Não foi possível enviar o email: {str(e)}')
+        except User.DoesNotExist:
+            messages.success(request, 'Se esse usuário existir, um email será enviado.')
+        return redirect('forgot_password')
+    return render(request, 'users/forgot_password.html')
+
+def _forgot_password_setup_email(request, user):
+    uid = urlsafe_base64_encode(force_bytes(user.pk))
+    token = token_generator.make_token(user)
+    link = request.build_absolute_uri(f'/usuarios/definir-senha/{uid}/{token}/')
+    subject = 'KinderCare+ - Redefina sua senha'
+    message = (
+        f'Olá, {user.get_full_name() or user.username}!\n\n'
+        f'Clique no link abaixo para redefinir sua senha de acesso:\n\n'
+        f'{link}\n\n'
+        f'Este link é válido por 3 dias.\n\n'
+        f'KinderCare+ - Centro de Integração da Criança Especial'
+    )
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])

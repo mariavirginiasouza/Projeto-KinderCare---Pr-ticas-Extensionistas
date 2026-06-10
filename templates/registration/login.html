@@ -1,11 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="card login-card">
-    <h2>Entrar no sistema</h2>
+<div class="card login-card" style="max-width: 420px; margin: 2rem auto;">
+    <div style="text-align: center; margin-bottom: 1.75rem;">
+        <div style="display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; background: var(--primary-light); border-radius: 16px; margin-bottom: 1rem;">
+            <svg fill="var(--primary)" width="28px" height="28px" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 28 4 C 20.3 4 14 10.3 14 18 C 14 25.7 20.3 32 28 32 C 35.7 32 42 25.7 42 18 C 42 10.3 35.7 4 28 4 Z M 28 36 C 14 36 4 43.6 4 52 L 52 52 C 52 43.6 42 36 28 36 Z"/>
+            </svg>
+        </div>
+        <h2 style="margin: 0; font-size: 1.4rem; font-weight: 800;">Entrar</h2>
+       </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
     <form method="post" class="form-grid">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn-primary">Entrar</button>
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 0.85rem; font-size: 1rem; margin-top: 0.5rem;">
+            Entrar
+        </button>
     </form>
+
+    <div style="text-align: center; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border);">
+        <a href="{% url 'forgot_password' %}" style="color: var(--primary); font-size: 0.875rem; font-weight: 600; text-decoration: none;">
+            Esqueceu sua senha?
+        </a>
+    </div>
 </div>
 {% endblock %}
