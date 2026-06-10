@@ -1,13 +1,8 @@
 {
-  "functions": {
-    "kindercare/wsgi.py": {
-      "runtime": "vercel-python@0.0.0"
-    }
-  },
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/kindercare/wsgi.py"
+      "destination": "/api/index.py"
     }
   ]
 }
