@@ -24,3 +24,5 @@ class TerapeutaForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['usuario'].empty_label = "Escolha um usuário"
+        self.fields['especialidades'].required = True
+        self.fields['usuario'].required = True
