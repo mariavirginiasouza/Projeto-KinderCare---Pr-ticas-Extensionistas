@@ -1,33 +1,162 @@
-{% extends 'base.html' %}
-{% block content %}
-<div class="card login-card" style="max-width: 420px; margin: 2rem auto;">
-    <div style="text-align: center; margin-bottom: 1.75rem;">
-        <div style="display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; background: var(--primary-light); border-radius: 16px; margin-bottom: 1rem;">
-            <svg fill="var(--primary)" width="28px" height="28px" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 28 4 C 20.3 4 14 10.3 14 18 C 14 25.7 20.3 32 28 32 C 35.7 32 42 25.7 42 18 C 42 10.3 35.7 4 28 4 Z M 28 36 C 14 36 4 43.6 4 52 L 52 52 C 52 43.6 42 36 28 36 Z"/>
-            </svg>
-        </div>
-        <h2 style="margin: 0; font-size: 1.4rem; font-weight: 800;">Entrar</h2>
-       </div>
+{% extends 'base.html' %} {% block content %}
 
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-        {% endfor %}
+<style>
+  /* Posiciona o input e o ícone na mesma linha */
+  .password-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+  }
+  
+  .password-container input {
+      width: 100%;
+      padding-right: 40px; /* Dá um espacinho para o texto não encostar no olho */
+  }
+  
+  /* Forçamos o fundo transparente e tiramos as bordas para remover aquele quadrado azul */
+  .toggle-password {
+      position: absolute;
+      right: 12px;
+      background: transparent !important;
+      background-color: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      color: #6c757d !important; /* Cor cinza mais discreta para o olho */
+      cursor: pointer;
+      display: flex;
+      padding: 0 !important;
+      margin: 0 !important;
+      outline: none !important;
+  }
+  
+  /* Quando passar o mouse, ele fica com a cor primária do seu sistema */
+  .toggle-password:hover {
+      color: var(--primary) !important;
+      opacity: 0.8;
+  }
+</style>
+
+<div class="card login-card" style="max-width: 420px; margin: 2rem auto">
+  <div style="text-align: center; margin-bottom: 1.75rem">
+    <div
+      style="
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 56px;
+        height: 56px;
+        background: var(--primary-light);
+        border-radius: 16px;
+        margin-bottom: 1rem;
+      "
+    >
+      <svg
+        fill="var(--primary)"
+        width="28px"
+        height="28px"
+        viewBox="0 0 56 56"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M 28 4 C 20.3 4 14 10.3 14 18 C 14 25.7 20.3 32 28 32 C 35.7 32 42 25.7 42 18 C 42 10.3 35.7 4 28 4 Z M 28 36 C 14 36 4 43.6 4 52 L 52 52 C 52 43.6 42 36 28 36 Z"
+        />
+      </svg>
+    </div>
+    <h2 style="margin: 0; font-size: 1.4rem; font-weight: 800">Entrar</h2>
+  </div>
+
+  {% if messages %} {% for message in messages %}
+  <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+  {% endfor %} {% endif %}
+
+  <form method="post" class="form-grid">
+    {% csrf_token %} 
+    
+    <p>
+        {{ form.username.label_tag }}
+        {{ form.username }}
+        {{ form.username.errors }}
+    </p>
+
+    <p>
+        {{ form.password.label_tag }}
+        <div class="password-container">
+            {{ form.password }}
+            
+            <button type="button" id="togglePassword" class="toggle-password" title="Mostrar/Esconder Senha">
+                <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                </svg>
+            </button>
+        </div>
+        {{ form.password.errors }}
+    </p>
+
+    {% if form.non_field_errors %}
+      {{ form.non_field_errors }}
     {% endif %}
 
-    <form method="post" class="form-grid">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 0.85rem; font-size: 1rem; margin-top: 0.5rem;">
-            Entrar
-        </button>
-    </form>
+    <button
+      type="submit"
+      class="btn-primary"
+      style="
+        width: 100%;
+        justify-content: center;
+        padding: 0.85rem;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+      "
+    >
+      Entrar
+    </button>
+  </form>
 
-    <div style="text-align: center; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border);">
-        <a href="{% url 'forgot_password' %}" style="color: var(--primary); font-size: 0.875rem; font-weight: 600; text-decoration: none;">
-            Esqueceu sua senha?
-        </a>
-    </div>
+  <div
+    style="
+      text-align: center;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    "
+  >
+    <a
+      href="{% url 'forgot_password' %}"
+      style="
+        color: var(--primary);
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-decoration: none;
+      "
+    >
+      Esqueceu sua senha?
+    </a>
+  </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const toggleButton = document.getElementById("togglePassword");
+      const passwordInput = document.getElementById("id_password"); 
+      const eyeIcon = document.getElementById("eyeIcon");
+
+      if (toggleButton && passwordInput) {
+          toggleButton.addEventListener("click", function(event) {
+              event.preventDefault(); // Evita que o botão tente enviar o formulário
+              
+              const isPassword = passwordInput.getAttribute("type") === "password";
+              
+              if (isPassword) {
+                  // Se era senha, agora vai virar TEXTO (visível). O olho tem que ficar ABERTO.
+                  passwordInput.setAttribute("type", "text");
+                  eyeIcon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+              } else {
+                  // Se era texto, agora vai virar SENHA (escondido). O olho tem que ficar RISCADO.
+                  passwordInput.setAttribute("type", "password");
+                  eyeIcon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
+              }
+          });
+      }
+  });
+</script>
 {% endblock %}
