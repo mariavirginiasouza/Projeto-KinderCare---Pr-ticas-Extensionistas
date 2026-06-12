@@ -30,17 +30,32 @@ def _send_password_setup_email(request, user):
     send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
 
 
+PERFIS = [
+    ('', 'Todos'),
+    ('coordenacao', 'Coordenação'),
+    ('terapeuta', 'Terapeuta'),
+    ('recepcao', 'Recepção'),
+]
+
 @role_required('coordenacao')
 def user_list(request):
     busca = request.GET.get('q', '')
+    perfil = request.GET.get('perfil', '')
     usuarios = User.objects.all().order_by('first_name', 'username')
+    if perfil:
+        usuarios = usuarios.filter(role=perfil)
     if busca:
         usuarios = (
             usuarios.filter(username__icontains=busca)
             | usuarios.filter(first_name__icontains=busca)
             | usuarios.filter(last_name__icontains=busca)
         )
-    return render(request, 'users/list.html', {'usuarios': usuarios, 'busca': busca})
+    return render(request, 'users/list.html', {
+        'usuarios': usuarios,
+        'busca': busca,
+        'perfil': perfil,
+        'perfis': PERFIS,
+    })
 
 
 @role_required('coordenacao')

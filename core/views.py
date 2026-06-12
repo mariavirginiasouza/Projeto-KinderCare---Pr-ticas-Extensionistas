@@ -6,6 +6,12 @@ from django.db.models import Count, Q
 from django.shortcuts import render
 
 from agenda.models import Atendimento
+
+MESES_PT = {
+    1: 'Janeiro', 2: 'Fevereiro', 3: 'Março', 4: 'Abril',
+    5: 'Maio', 6: 'Junho', 7: 'Julho', 8: 'Agosto',
+    9: 'Setembro', 10: 'Outubro', 11: 'Novembro', 12: 'Dezembro',
+}
 from pacientes.models import Paciente
 from terapeutas.models import Terapeuta
 from users.models import User
@@ -33,8 +39,8 @@ def dashboard(request):
 
     # ── Cards de resumo ───────────────────────────────────────────────────
     total_pacientes   = Paciente.objects.count()
-    total_terapeutas  = Terapeuta.objects.count()
-    total_usuarios    = User.objects.count()
+    total_terapeutas  = Terapeuta.objects.filter(ativo=True).count()
+    total_usuarios    = User.objects.filter(is_active=True).count()
     atendimentos_hoje = Atendimento.objects.filter(data=hoje).count()
 
     totais_status = Atendimento.objects.aggregate(
@@ -96,6 +102,6 @@ def dashboard(request):
         'chart_status_data':   json.dumps(status_data),
         'chart_terap_labels':  json.dumps([t['terapeuta__nome'] or '—' for t in qs_terapeutas]),
         'chart_terap_data':    json.dumps([t['total'] for t in qs_terapeutas]),
-        'mes_nome':            hoje.strftime('%B/%Y'),
+        'mes_nome':            MESES_PT[hoje.month] + '/' + str(hoje.year),
     }
     return render(request, 'core/dashboard.html', context)

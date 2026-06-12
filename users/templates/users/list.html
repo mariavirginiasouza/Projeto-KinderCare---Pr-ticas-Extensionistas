@@ -5,12 +5,21 @@
 {% endblock %}
 {% block content %}
 <div class="page-header">
-    <h2>
-        Usuários e perfis de acesso
-    </h2>
+    <h2>Usuários e perfis de acesso</h2>
     <a class="btn-primary" href="{% url 'user_create' %}">Novo usuário</a>
 </div>
+
+<div class="tabs">
+    {% for valor, label in perfis %}
+    <a href="?perfil={{ valor }}{% if busca %}&q={{ busca }}{% endif %}"
+       class="tab-item {% if perfil == valor %}ativo{% endif %}">
+        {{ label }}
+    </a>
+    {% endfor %}
+</div>
+
 <form method="get" class="toolbar">
+    <input type="hidden" name="perfil" value="{{ perfil }}">
     <input type="text" name="q" placeholder="Buscar por nome ou usuário" value="{{ busca }}" class="busca">
     <button class="btn-outline" type="submit">Buscar</button>
 </form>

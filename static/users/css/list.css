@@ -75,5 +75,34 @@ tbody tr:last-child td { border-bottom: none; }
 
 .hint-parent:hover::after { opacity: 1; visibility: visible; }
 
+/* ── Abas de perfil ──────────────────────────── */
+.tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--primary-light);
+    padding-bottom: 0;
+}
+
+.tab-item {
+    padding: 8px 20px;
+    border-radius: 8px 8px 0 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+}
+
+.tab-item:hover { background: var(--primary-light); }
+
+.tab-item.ativo {
+    background: var(--primary-light);
+    border-bottom: 2px solid var(--primary);
+    color: var(--primary);
+}
+
 /* ── Busca ───────────────────────────────────── */
 .busca { flex: 1; max-width: 380px; }
