@@ -1,6 +1,5 @@
 import calendar
 import json
-from agenda.models import AgendaSemanal, Atendimento
 from datetime import date, datetime
 
 from django.db.models import Count
@@ -86,27 +85,8 @@ def presenca_dia(request, data):
     except ValueError:
         data_obj = date.today()
 
-    # 1. Descobrimos qual é o dia da semana (0=Segunda, 1=Terça, 2=Quarta...)
-    dia_semana_numero = data_obj.weekday()
+    pacientes = Paciente.objects.all().order_by('nome')
 
-    # 2. Buscamos os IDs dos pacientes com Agenda Semanal fixa e ATIVA para este dia
-    ids_agenda_fixa = AgendaSemanal.objects.filter(
-        dia_semana=dia_semana_numero, 
-        ativo=True
-    ).values_list('paciente_id', flat=True)
-
-    # 3. Buscamos os IDs dos pacientes com Atendimentos marcados especificamente para a data (extras, etc)
-    ids_atendimentos = Atendimento.objects.filter(
-        data=data_obj
-    ).values_list('paciente_id', flat=True)
-
-    # 4. Juntamos tudo numa lista só (o 'set' remove IDs duplicados caso o paciente esteja nas duas listas)
-    ids_pacientes_hoje = set(list(ids_agenda_fixa) + list(ids_atendimentos))
-
-    # 5. Filtramos os pacientes reais no banco de dados!
-    pacientes = Paciente.objects.filter(id__in=ids_pacientes_hoje).order_by('nome').distinct()
-
-    # Daqui para baixo, o seu código continua igual:
     presencas_qs = PresencaAula.objects.filter(data=data_obj).select_related('paciente')
     presencas_map = {p.paciente_id: p.presente for p in presencas_qs}
 
