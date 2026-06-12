@@ -51,6 +51,10 @@ class AgendaSemanal(models.Model):
         self.full_clean()
         super().save(*args, **kwargs)
 
+    def delete(self, *args, **kwargs):
+        self.atendimentos.filter(status_presenca=Atendimento.AGENDADO).delete()
+        super().delete(*args, **kwargs)
+
 class Atendimento(models.Model):
     NORMAL = 'normal'
     EXTRA = 'extra'
